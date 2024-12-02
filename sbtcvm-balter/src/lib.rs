@@ -40,12 +40,12 @@ fn dec_to_bal(mut dec: i128) -> Result<Vec<BalTer>, MachineError> {
             idx_balter += 1;
             continue;
         };
-        match dec % 3 {
-            0 => out[idx_balter].value[idx_vec] = '0',
-            1 => out[idx_balter].value[idx_vec] = '+',
-            2 => out[idx_balter].value[idx_vec] = '-',
+        out[idx_balter].value[idx_vec] = match dec % 3 {
+            0 => '0',
+            1 => '+',
+            2 => '-',
             _ => return Err(MachineError::DecConversion),
-        }
+        };
         dec = (dec + 1) / 3
     }
     Ok(out)
